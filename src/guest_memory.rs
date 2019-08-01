@@ -21,7 +21,7 @@
 //! - [MemoryRegionAddress](struct.MemoryRegionAddress.html): represents an offset inside a region.
 //! - [GuestMemoryRegion](trait.GuestMemoryRegion.html): represent a continuous region of guest's
 //! physical memory.
-//! - [GuestMemory](trait.GuestMemroy.html): represent a collection of GuestMemoryRegion objects.
+//! - [GuestMemory](trait.GuestMemory.html): represent a collection of GuestMemoryRegion objects.
 //! The main responsibilities of the GuestMemory trait are:
 //!     - hide the detail of accessing guest's physical address.
 //!     - map a request address to a GuestMemoryRegion object and relay the request to it.
@@ -232,6 +232,10 @@ pub trait GuestMemory {
 
     /// Returns the number of regions in the collection.
     fn num_regions(&self) -> usize;
+
+    /// Takes back a range of memory from the guest. If the memory is read from after this
+    /// call, the memory will contain only zeroes. The reclaimed range is [addr, addr+count).
+    fn remove_range(&self, addr: GuestAddress, count: u64) -> Result<(), E>;
 
     /// Return the region containing the specified address or None.
     fn find_region(&self, addr: GuestAddress) -> Option<&Self::R>;

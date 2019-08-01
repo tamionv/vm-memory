@@ -51,7 +51,7 @@ with addresses as follows:
    `usize` are used to store the raw value. Pointers such as `*u8`, can not be
    used as an implementation of `AddressValue` because the `Add` and `Sub`
    traits are not implemented for that type.
-- `Address`: implementation of `AddressValue.
+- `Address`: implementation of `AddressValue`.
 - `Bytes`: trait for volatile access to memory. The `Bytes` trait can be
   parameterized with types that represent addresses, in order to enforce that
   addresses are used with the right "kind" of volatile memory.
